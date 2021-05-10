@@ -1,0 +1,25 @@
+# yaml 配置
+version: '3'
+services:
+   db:
+    image: mysql/mysql-server
+    container_name: mysql-server
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    restart: always
+    ports:
+     - "3306:3306"
+    environment:
+     MYSQL_ROOT_PASSWORD: 1234.
+     MYSQL_USER: python_dev_user
+     MYSQL_PASSWORD: 2Y6eEnp4bAFXNuVh8Tj7.
+    volumes:
+       - /d/docker/beta/mysql-init:/docker-entrypoint-initdb.d
+   web:
+     build:
+       context: ./src
+         dockerfile: Dockerfile
+     container_name: myapp
+     ports:
+       - "5000:5000"
+     depends_on:
+       - db
