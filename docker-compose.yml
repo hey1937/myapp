@@ -9,9 +9,9 @@ services:
     ports:
      - "3306:3306"
     environment:
-     MYSQL_ROOT_PASSWORD: 1234.
+     MYSQL_ROOT_PASSWORD: 1234
      MYSQL_USER: python_dev_user
-     MYSQL_PASSWORD: 2Y6eEnp4bAFXNuVh8Tj7.
+     MYSQL_PASSWORD: 2Y6eEnp4bAFXNuVh8Tj7
     volumes:
        - /d/docker/beta/mysql-init:/docker-entrypoint-initdb.d
    web:
