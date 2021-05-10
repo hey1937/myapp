@@ -29,13 +29,6 @@ class User(db.Model):
     created_at = db.Column(db.String(200))
 
 
-@app.route("/", methods=["GET"])
-def print_hello():
-    if request.method == 'GET':
-        user_id = request.args.get('id')
-        print(user_id)
-        return "user_id"
-
 
 @app.route("/test/api/v1.0/token", methods=['POST'])
 def create_token():
@@ -43,7 +36,6 @@ def create_token():
         obj = request.get_json(force=True)
         get_mobile = obj.get("mobile")
         otp = obj.get("otp")
-        print(obj, get_mobile, otp)
         if not obj or not get_mobile or not otp:
             data = {
                 "msg": "参数错误",
@@ -52,7 +44,6 @@ def create_token():
             return jsonify(data)
         if get_mobile:
             access_token, exp_datetime = generate_access_token(mobile=get_mobile)
-            print(access_token)
             refresh_token = generate_refresh_token(mobile=get_mobile)
             data = {"access_token": access_token,
                     "refresh_token": refresh_token,
