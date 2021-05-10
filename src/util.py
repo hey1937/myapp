@@ -2,7 +2,7 @@
 from datetime import datetime, timedelta
 import jwt
 from functools import wraps
-
+from flask import request, session
 # 自定义key
 key = "my_key%my_key"
 
@@ -20,10 +20,10 @@ def generate_access_token(mobile: str = "", algorithm: str = 'HS256', exp: float
     exp_datetime = now + timedelta(hours=exp)
     access_payload = {
         'exp': exp_datetime,
-        'flag': 0,  # 标识是否为一次性token，0是，1不是
-        'iat': now,  # 开始时间
-        'iss': 'qin',  # 签名
-        'mobile': mobile  # 自定义部分
+        'flag': 0,
+        'iat': now,
+        'iss': 'qin',
+        'mobile': mobile
     }
     access_token = jwt.encode(access_payload, key, algorithm=algorithm)
     return access_token,exp_datetime
@@ -43,10 +43,10 @@ def generate_refresh_token(mobile: str = "", algorithm: str = 'HS256', fresh: fl
     exp_datetime = now + timedelta(days=fresh)
     refresh_payload = {
         'exp': exp_datetime,
-        'flag': 1,  # 标识是否为一次性token，0是，1不是
-        'iat': now,  # 开始时间
-        'iss': 'qin',  # 签名，
-        'mobile': mobile  # 自定义部分
+        'flag': 1,
+        'iat': now,
+        'iss': 'qin',
+        'mobile': mobile
     }
 
     refresh_token = jwt.encode(refresh_payload, key, algorithm=algorithm)
