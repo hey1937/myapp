@@ -50,7 +50,7 @@ def create_token():
     if not request.json or not 'mobile' in request.json:
         abort(400)
     obj = request.get_json(force=True)
-    get_mobile = obj.get("mobile").replace("+86-")
+    get_mobile = obj.get("mobile")
     otp = obj.get("otp")
     if not obj or not get_mobile or not otp:
         return "参数错误"
